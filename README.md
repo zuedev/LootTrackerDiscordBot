@@ -1,4 +1,4 @@
-<img src="avatar.png" align="left" width="128" height="128">
+<img src="avatar.png" width="128" height="128">
 
 # LootTrackerDiscordBot
 
