@@ -4,6 +4,7 @@ const commands = [
   ["get [item]", "Get the quantity of an item"],
   ["add [quantity] [item]", "Add a quantity of an item"],
   ["remove [quantity] [item]", "Remove a quantity of an item"],
+  ["clear", "Clear the database for this channel"],
 ];
 
 export default async ({ message }) =>
