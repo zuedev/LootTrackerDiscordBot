@@ -12,6 +12,8 @@ export default async ({ message, args }) => {
     .collection(`channel-${message.channel.id}`)
     .findOne({ itemName: args[0].toLowerCase() });
 
+  await mongo.close();
+
   const quantity = data ? data.itemAmount : 0;
 
   await message.reply(`There are ${quantity} "${args[0]}" in the database.`);

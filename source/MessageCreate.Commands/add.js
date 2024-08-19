@@ -15,4 +15,8 @@ export default async ({ message, args }) => {
       { $inc: { itemAmount: parseInt(args[0]) } },
       { upsert: true }
     );
+
+  await mongo.close();
+
+  await message.react("✅");
 };
