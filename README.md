@@ -27,7 +27,7 @@ The following features are planned:
 - [x] Command for clearing all loot (requires moderation permissions for channel)
 - [x] Command for listing all loot
 - [ ] Better responses (no more reactions)
-- [ ] Allow strings with spaces in loot names
+- [x] Allow strings with spaces in loot names
 - [ ] Add an audit log for all loot changes
-- [ ] Use slash commands for better UX
+- [x] Use slash commands for better UX
 - [ ] Add a web interface for easier loot tracking
