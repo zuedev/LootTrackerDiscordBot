@@ -24,6 +24,7 @@ The following features are planned:
 
 - [x] Basic functionality using messages
 - [x] Add a database for persistent storage
+- [ ] Command for clearing all loot (requires moderation permissions for channel)
 - [ ] Command for listing all loot
 - [ ] Allow strings with spaces in loot names
 - [ ] Add an audit log for all loot changes
