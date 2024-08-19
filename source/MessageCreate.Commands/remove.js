@@ -1,22 +1,28 @@
-import { connect } from "../controllers/mongo.js";
+import addItem from "../helpers/items/add.js";
 
 export default async ({ message, args }) => {
+  const itemName = args[1].toLowerCase();
+  const itemAmount = parseInt(args[0]);
+
+  if (parseInt(itemName))
+    return await message.reply("Please provide a valid item name.");
+
+  if (isNaN(itemAmount) || itemAmount <= 0)
+    return await message.reply("Please provide a valid positive number.");
+
   console.log(
-    `Removing ${args[0]} "${args[1]}" from the database for channel ${message.channel.name} (${message.channel.id}) in guild ${message.guild.name} (${message.guild.id}).`
+    `Removing ${itemAmount} "${itemName}" from the database for channel ${message.channel.name} (${message.channel.id}) in guild ${message.guild.name} (${message.guild.id}).`
   );
 
-  const mongo = await connect();
+  const newAmount = await addItem({
+    channelId: message.channel.id,
+    itemName,
+    itemAmount: -itemAmount,
+  });
 
-  await mongo
-    .db("test")
-    .collection(`channel-${message.channel.id}`)
-    .updateOne(
-      { itemName: args[1].toLowerCase() },
-      { $inc: { itemAmount: -parseInt(args[0]) } },
-      { upsert: true }
-    );
-
-  await mongo.close();
-
-  await message.react("✅");
+  await message.reply(
+    `Changed the quantity of **${itemName}** from \`${
+      newAmount + itemAmount
+    }\` to \`${newAmount}\`.`
+  );
 };

@@ -11,12 +11,14 @@ export default async ({ message, args }) => {
 
   const mongo = await connect();
 
-  await mongo
+  const data = await mongo
     .db("test")
     .collection(`channel-${message.channel.id}`)
     .deleteMany({});
 
   await mongo.close();
 
-  await message.react("✅");
+  await message.reply(
+    `Cleared the database for this channel. Deleted \`${data.deletedCount}\` entries.`
+  );
 };
