@@ -1,5 +1,6 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import incrementItem from "../helpers/items/increment.js";
+import auditLog from "../helpers/audit/log.js";
 
 export default {
   data: new SlashCommandBuilder()
@@ -36,5 +37,10 @@ export default {
         newAmount + itemAmount
       }\` to \`${newAmount}\`.`
     );
+
+    await auditLog({
+      channelId: interaction.channel.id,
+      message: `<@${interaction.user.id}> removed \`${itemAmount}\` **${itemName}**, leaving \`${newAmount}\` remaining`,
+    });
   },
 };

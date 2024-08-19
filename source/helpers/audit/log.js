@@ -1,14 +1,14 @@
 import { connect } from "../../controllers/mongo.js";
 
-export default async ({ channelId, itemName }) => {
+export default async ({ channelId, message }) => {
   const mongo = await connect();
 
   const data = await mongo
     .db("LootTracker")
-    .collection(`items`)
-    .findOne({ channelId, itemName });
+    .collection(`audit`)
+    .insertOne({ channelId, message, timestamp: new Date() });
 
   await mongo.close();
 
-  return data ? data.itemAmount : 0;
+  return data;
 };

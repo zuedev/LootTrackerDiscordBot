@@ -28,6 +28,6 @@ The following features are planned:
 - [x] Command for listing all loot
 - [ ] Better responses (no more reactions)
 - [x] Allow strings with spaces in loot names
-- [ ] Add an audit log for all loot changes
+- [x] Add an audit log for all loot changes
 - [x] Use slash commands for better UX
 - [ ] Add a web interface for easier loot tracking

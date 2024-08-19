@@ -4,10 +4,10 @@ export default async ({ channelId, itemName, itemAmount }) => {
   const mongo = await connect();
 
   const data = await mongo
-    .db("test")
-    .collection(`channel-${channelId}`)
+    .db("LootTracker")
+    .collection(`items`)
     .findOneAndUpdate(
-      { itemName },
+      { channelId, itemName },
       { $inc: { itemAmount } },
       { upsert: true, returnDocument: "after" }
     );

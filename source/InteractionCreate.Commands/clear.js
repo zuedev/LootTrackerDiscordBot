@@ -1,6 +1,7 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { PermissionFlagsBits } from "discord.js";
 import { connect } from "../controllers/mongo.js";
+import auditLog from "../helpers/audit/log.js";
 
 export default {
   data: new SlashCommandBuilder()
@@ -19,15 +20,19 @@ export default {
 
     const mongo = await connect();
 
-    const data = await mongo
-      .db("test")
-      .collection(`channel-${interaction.channel.id}`)
-      .deleteMany({});
+    const data = await mongo.db("LootTracker").collection(`items`).deleteMany({
+      channelId: interaction.channel.id,
+    });
 
     await mongo.close();
 
     await interaction.reply(
       `Cleared the database for this channel. Deleted \`${data.deletedCount}\` entries.`
     );
+
+    await auditLog({
+      channelId: interaction.channel.id,
+      message: `<@${interaction.user.id}> cleared the database for this channel, deleting \`${data.deletedCount}\` entries.`,
+    });
   },
 };

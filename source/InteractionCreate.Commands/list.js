@@ -13,10 +13,10 @@ export default {
     const mongo = await connect();
 
     const data = await mongo
-      .db("test")
-      .collection(`channel-${interaction.channel.id}`)
+      .db("LootTracker")
+      .collection(`items`)
       .find(
-        {},
+        { channelId: interaction.channel.id },
         {
           projection: {
             _id: 0,
