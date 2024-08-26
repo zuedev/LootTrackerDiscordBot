@@ -36,7 +36,7 @@ export default {
     if (newAmount === 0) {
       const mongo = await connect();
 
-      await mongo.collection("items").deleteOne({
+      await mongo.db("LootTracker").collection("items").deleteOne({
         channelId: interaction.channel.id,
         name: itemName,
       });
