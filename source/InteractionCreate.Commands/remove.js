@@ -1,4 +1,5 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
+import { connect } from "../controllers/mongo.js";
 import incrementItem from "../helpers/items/increment.js";
 import auditLog from "../helpers/audit/log.js";
 
@@ -32,11 +33,24 @@ export default {
       itemAmount: -itemAmount,
     });
 
-    await interaction.reply(
-      `Changed the quantity of **${itemName}** from \`${
-        newAmount + itemAmount
-      }\` to \`${newAmount}\`.`
-    );
+    if (newAmount === 0) {
+      const mongo = await connect();
+
+      await mongo.collection("items").deleteOne({
+        channelId: interaction.channel.id,
+        name: itemName,
+      });
+
+      await interaction.reply(
+        `Removed the last of **${itemName}** from the database.`
+      );
+    } else {
+      await interaction.reply(
+        `Changed the quantity of **${itemName}** from \`${
+          newAmount + itemAmount
+        }\` to \`${newAmount}\`.`
+      );
+    }
 
     await auditLog({
       channelId: interaction.channel.id,
