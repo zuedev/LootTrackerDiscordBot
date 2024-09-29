@@ -7,7 +7,7 @@ export default async ({ channelId, itemName, itemAmount }) => {
     .db("LootTracker")
     .collection(`items`)
     .findOneAndUpdate(
-      { channelId, itemName.toLowerCase() },
+      { channelId, itemName: itemName.toLowerCase() },
       { $inc: { itemAmount } },
       { upsert: true, returnDocument: "after" }
     );
